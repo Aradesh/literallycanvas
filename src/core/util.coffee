@@ -1,5 +1,10 @@
 slice = Array.prototype.slice
 
+requestAnimationFrame = () ->
+  try
+    return (window.requestAnimationFrame or window.setTimeout).bind(window)
+  catch e
+
 util =
   last: (array, n = null) ->
     if n
@@ -75,7 +80,7 @@ util =
     return 1 unless window.devicePixelRatio > 1
     return window.devicePixelRatio
 
-  requestAnimationFrame: (window.requestAnimationFrame or window.setTimeout).bind(window)
+  requestAnimationFrame: requestAnimationFrame()
 
   getGUID: do ->
     s4 = ->
